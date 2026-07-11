@@ -51,6 +51,14 @@ graph TD
 
 ---
 
+## 📊 Governance Console UI
+
+The gateway ships with a beautifully designed, dark-mode visual interface with radial ambient glow and frosted glassmorphism that showcases real-time throughput metrics, cost savings, load distribution charts, and live playground traces.
+
+![router.io Governance Dashboard Console](static/dashboard.png)
+
+---
+
 ## 🛠 Tech Stack
 
 - **Backend Framework**: Python 3.11+, FastAPI, Uvicorn
@@ -59,16 +67,7 @@ graph TD
 - **Analytics Visualization**: Chart.js (Interactive loaded load distributions)
 - **Design Aesthetic**: Premium glassmorphic custom dark theme (HTML5, Vanilla CSS3, Javascript ES6)
 
----
 
-## 🎮 1-Click Interactive Demo Sandbox (No Install Needed!)
-
-For instant reviews, a fully interactive **standalone browser sandbox prototype** is bundled in the repository root. This lets you play with the complexity parser, change policies, clear caches, and inspect dynamic decision trees live with zero terminal commands or library installations:
-
-1. Clone or download the repository.
-2. Double-click the **[`demo.html`](file:///wsl.localhost/Ubuntu-22.04/home/tanvir/routerio/demo.html)** file in your folder to launch it instantly in any modern web browser!
-
----
 
 ## ⚙ Installation & Quickstart
 

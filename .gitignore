@@ -20,3 +20,9 @@ env/
 # OS metadata
 .DS_Store
 Thumbs.db
+
+# Internal specifications & assets
+AGENTS.md
+Mega ARCHITECTURE for all tracks.md
+TRACK-1A-enterprise-portfolio.md
+demo.html
