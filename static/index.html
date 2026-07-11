@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>routerio — Governance Dashboard</title>
+    <!-- Outfit & Inter Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+    <div class="glow-bg-radial"></div>
+
+    <div class="app-container">
+        <!-- HEADER -->
+        <header class="app-header">
+            <div class="logo-area">
+                <span class="logo-symbol">⇄</span>
+                <div class="logo-text">
+                    <h1>router.io</h1>
+                    <p>Enterprise LLM Routing & Governance</p>
+                </div>
+            </div>
+            
+            <div class="provider-status-bar" id="provider-breakers">
+                <!-- JavaScript loads circuit status indicators dynamically here -->
+            </div>
+        </header>
+
+        <!-- GRID 1: ANALYTICS CARDS -->
+        <section class="analytics-row">
+            <div class="metric-card glass-card">
+                <div class="card-glow purple"></div>
+                <div class="metric-info">
+                    <span class="metric-label">Total Requests</span>
+                    <h2 class="metric-value" id="stat-requests">0</h2>
+                </div>
+                <div class="metric-icon">✦</div>
+            </div>
+            
+            <div class="metric-card glass-card">
+                <div class="card-glow blue"></div>
+                <div class="metric-info">
+                    <span class="metric-label">Semantic Cache Hit Rate</span>
+                    <h2 class="metric-value" id="stat-cache">0%</h2>
+                </div>
+                <div class="metric-icon">⚡</div>
+            </div>
+
+            <div class="metric-card glass-card">
+                <div class="card-glow green"></div>
+                <div class="metric-info">
+                    <span class="metric-label">Cost Saved (USD)</span>
+                    <h2 class="metric-value" id="stat-savings">$0.00</h2>
+                </div>
+                <div class="metric-icon">✓</div>
+            </div>
+
+            <div class="metric-card glass-card">
+                <div class="card-glow gold"></div>
+                <div class="metric-info">
+                    <span class="metric-label">Avg Routing Latency</span>
+                    <h2 class="metric-value" id="stat-latency">0 ms</h2>
+                </div>
+                <div class="metric-icon">⏱</div>
+            </div>
+        </section>
+
+        <!-- MAIN LAYOUT COLS -->
+        <div class="dashboard-grid">
+            
+            <!-- COLUMN 1: ROUTING PLAYGROUND -->
+            <div class="playground-col glass-card">
+                <div class="col-header">
+                    <h3>⇄ Dynamic Router Playground</h3>
+                    <span class="badge">Live Test Engine</span>
+                </div>
+
+                <div class="playground-body">
+                    <div class="form-group">
+                        <label for="prompt-input">Enter Prompt / Instruction</label>
+                        <textarea id="prompt-input" placeholder="Ask a question, query, write database schema, or generate system configurations to test dynamic routing..." rows="4"></textarea>
+                    </div>
+
+                    <div class="playground-settings">
+                        <div class="form-group half">
+                            <label for="policy-select">Routing Strategy Policy</label>
+                            <select id="policy-select">
+                                <option value="cost">Optimize for Cost (Cheat tier if low complexity)</option>
+                                <option value="performance" selected>Optimize for Performance (Premium capability)</option>
+                                <option value="latency">Optimize for Latency (Quickest response)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group half">
+                            <label for="compliance-select">Compliance Profiles</label>
+                            <select id="compliance-select">
+                                <option value="global" selected>Global Routing Protocol</option>
+                                <option value="us-only">US-Only Residency Enforcement</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="playground-actions">
+                        <div class="cache-toggle">
+                            <input type="checkbox" id="bypass-cache-checkbox">
+                            <label for="bypass-cache-checkbox">Bypass Semantic Cache</label>
+                        </div>
+                        <button id="send-prompt-btn" class="btn btn-primary">
+                            <span>Execute Routed Query</span>
+                            <span class="btn-loader hidden"></span>
+                        </button>
+                    </div>
+
+                    <!-- PLAYGROUND OUTPUT TRACE -->
+                    <div id="output-trace-container" class="output-trace hidden">
+                        <h4>Routing Verdict Trace</h4>
+                        <div class="trace-summary">
+                            <p>Complexity Classification: <strong id="trace-complexity" class="complexity-badge">High</strong></p>
+                            <p>Routed Upstream to: <strong id="trace-model">anthropic/claude-3-5-sonnet</strong></p>
+                            <p>Cache Hit: <strong id="trace-cache-status">No</strong></p>
+                        </div>
+                        
+                        <div class="trace-steps-container">
+                            <h5>Routing Decisions / Path Logs:</h5>
+                            <ul id="trace-steps-list" class="trace-steps-list">
+                                <!-- Steps populated via JavaScript -->
+                            </ul>
+                        </div>
+
+                        <div class="trace-text-result">
+                            <h5>Generated Response Output:</h5>
+                            <pre><code id="trace-text-output">Response details...</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- COLUMN 2: CHART & LOGS -->
+            <div class="analytics-col">
+                <div class="glass-card chart-card">
+                    <div class="col-header">
+                        <h3>📊 Provider Load Distribution</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="provider-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="glass-card actions-card">
+                    <div class="col-header">
+                        <h3>⚙ System Tools & Actions</h3>
+                    </div>
+                    <div class="tools-grid">
+                        <button id="clear-cache-btn" class="btn btn-secondary">Clear Semantic Cache</button>
+                        <button id="reset-breakers-btn" class="btn btn-secondary">Reset Circuit Breakers</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- RECENT ROUTING LOGS TABLE -->
+        <section class="logs-section glass-card">
+            <div class="col-header">
+                <h3>📋 System Audit & Latency Logs</h3>
+                <span class="badge logs-count" id="logs-count">0 recorded</span>
+            </div>
+            <div class="table-container">
+                <table class="logs-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Policy</th>
+                            <th>Prompt (Truncated)</th>
+                            <th>Routed Model</th>
+                            <th>Cached?</th>
+                            <th>Fallback?</th>
+                            <th>Latency</th>
+                            <th>Cost</th>
+                        </tr>
+                    </thead>
+                    <tbody id="logs-table-body">
+                        <!-- Table logs populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/static/app.js"></script>
+</body>
+</html>

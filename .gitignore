@@ -1,0 +1,22 @@
+# Environment and API keys
+.env
+.env.*
+
+# Python Cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.venv/
+venv/
+env/
+
+# Databases
+*.db
+*.db-journal
+*.sqlite3
+
+# OS metadata
+.DS_Store
+Thumbs.db
