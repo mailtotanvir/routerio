@@ -128,26 +128,6 @@ response = client.chat.completions.create(
 
 print(response.choices[0].message.content)
 ```
-
----
-
-## 🧪 Verification & Unit Testing
-
-A comprehensive verification test suite is supplied to programmatically test the routing system. Run the tests using the command below:
-
-```bash
-python -m unittest test_router.py
-```
-
-Expected output:
-```text
-.....
-----------------------------------------------------------------------
-Ran 5 tests in 0.521s
-
-OK
-```
-
 ---
 
 ## 📄 License
